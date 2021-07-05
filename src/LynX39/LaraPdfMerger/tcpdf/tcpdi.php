@@ -119,6 +119,11 @@ class TCPDI extends FPDF_TPL {
      */
     function _getPdfParser($filename) {
         $data = file_get_contents($filename);
+	try {
+            $data = decrypt(file_get_contents($filename));
+        } catch (\Exception $exception) {
+            $data = file_get_contents($filename);
+        }
     	return new tcpdi_parser($data, $filename);
     }
     
